@@ -1,5 +1,7 @@
 # Ignores all IDEA Client specific files e.g plugin files
 .idea/
+# Ignores all created files by IntelliJ IDEA
+*.iml
 
 # Default ignored files by IDEA
 /shelf/
