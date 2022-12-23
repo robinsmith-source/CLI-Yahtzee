@@ -33,6 +33,16 @@ public class Dice {
         return faceValue;
     }
 
+    public static String showDice(Dice[] dice) {
+        return String.format("""
+                +------+---+---+---+---+---+
+                | Dice | 1 | 2 | 3 | 4 | 5 |
+                +------+---+---+---+---+---+
+                | Face | %d | %d | %d | %d | %d |
+                +------+---+---+---+---+---+
+                """, dice[0].getFaceValue(), dice[1].getFaceValue(), dice[2].getFaceValue(), dice[3].getFaceValue(), dice[4].getFaceValue());
+    }
+
     /**
      * Method to roll a die (Random Value [1;7[ will be assigned to faceValue Variable via setFaceValue Method).
      *
