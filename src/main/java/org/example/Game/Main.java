@@ -1,15 +1,11 @@
 package org.example.Game;
 
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
-        Player p1 = new Player("Bernd");
-        Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
-        Dice[] diceClone = Arrays.copyOfRange(dice,0, 1);
+        final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
+        final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
 
-        System.out.println(p1.getName());
-        Dice.roll(diceClone);
+        Dice.roll(dice);
 
         System.out.println("1. Dice Value " + dice[0].getFaceValue());
         System.out.println("2. Dice Value " + dice[1].getFaceValue());
@@ -17,6 +13,6 @@ public class Main {
         System.out.println("4. Dice Value " + dice[3].getFaceValue());
         System.out.println("5. Dice Value " + dice[4].getFaceValue());
 
-        System.out.println(Dice.sumFaces(dice));
+        System.out.println("Sum of all 5 Dice: " + Dice.sumFaces(dice));
     }
 }

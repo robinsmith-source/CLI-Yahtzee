@@ -17,6 +17,7 @@ public class Dice {
 
     /**
      * Private Setter Method for faceValue Variable. Mainly used by roll Method.
+     *
      * @param faceValue Face value
      */
     private void setFaceValue(final int faceValue) {
@@ -25,6 +26,7 @@ public class Dice {
 
     /**
      * Default Getter Method for faceValue Variable.
+     *
      * @return Face value
      */
     public int getFaceValue() {
@@ -33,9 +35,10 @@ public class Dice {
 
     /**
      * Method to roll a die (Random Value [1;7[ will be assigned to faceValue Variable via setFaceValue Method).
-     * @param dice Die/Dice to be rolled
+     *
+     * @param dice Die/Dice to be rolled converted to an Array in between the Method.
      */
-    public static void roll(Dice[] dice) {
+    public static void roll(Dice... dice) {
         for (final Dice d : dice) {
             d.setFaceValue((new Random().nextInt(1, 7)));
         }
@@ -43,10 +46,11 @@ public class Dice {
 
     /**
      * Method to sum all Dice faceValues.
+     *
      * @param dice Dice to be summed up
      * @return sum
      */
-    public static int sumFaces(Dice[] dice) {
+    public static int sumFaces(Dice... dice) {
         int sum = 0;
         for (final Dice d : dice) {
             sum += d.getFaceValue();
