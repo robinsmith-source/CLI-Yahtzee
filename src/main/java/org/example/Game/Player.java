@@ -5,7 +5,6 @@ public class Player {
 
     public Player(final String name) {
         this.name = name;
-
     }
 
     public String getName() {
