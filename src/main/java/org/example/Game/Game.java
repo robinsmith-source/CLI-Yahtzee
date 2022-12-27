@@ -1,16 +1,18 @@
 package org.example.Game;
+
 import java.util.Scanner;
+
 public class Game {
+    private static int currentPlayerIndex = 0;
     private static final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
     static Scanner scan = new Scanner(System.in);
 
     /**
-     * Gameplay Method
+     * Method to test a Methods function.
      */
-    public static void play() {
+    public static void demoTest() {
         Dice.roll(dice);
-
         System.out.println("1. Dice Value " + dice[0].getFaceValue());
         System.out.println("2. Dice Value " + dice[1].getFaceValue());
         System.out.println("3. Dice Value " + dice[2].getFaceValue());
@@ -19,14 +21,27 @@ public class Game {
         System.out.println(Dice.showDice(dice));
 
         System.out.println("Sum of all 5 Dice: " + Dice.sumFaces(dice));
-        rerollDice();
+        System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();System.out.println(currentPlayer().getName());
+        nextPlayer();
+    }
+    /**
+     * Gameplay Method
+     */
+    public static void play() {
+
     }
 
     /**
      * Method to reroll Dice (2nd and 3rd roll)
      */
     private static void rerollDice() {
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             System.out.println("möchtest du Würfel 1 nocheinmal würfeln? dann schreibe 1");
 
             int eins_zweiterwürfel = scan.nextInt();
@@ -67,10 +82,21 @@ public class Game {
     }
 
     /**
-     * Method to give Player class Access to players Array for easier Player switch.
-     * @return Array with Player Objects.
+     * Method to get the next Player Object.
      */
-    public static Player[] getPlayers() {
-        return players;
+    private static void nextPlayer() {
+        if (players.length-1 == currentPlayerIndex) {
+            currentPlayerIndex = 0;
+        } else {
+            currentPlayerIndex++;
+        }
+    }
+
+    /**
+     * Method to get the current Player Object.
+     * @return Player Object with the current turn.
+     */
+    private static Player currentPlayer() {
+        return players[currentPlayerIndex];
     }
 }
