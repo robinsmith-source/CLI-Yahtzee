@@ -1,34 +1,27 @@
-package org.example.Game;
+package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
-    private static int currentPlayerIndex = 0;
-    private static final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
+    private int currentPlayerIndex = 0;
+    private final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
-    static Scanner scan = new Scanner(System.in);
+    private static final Scanner scan = new Scanner(System.in);
 
     /**
      * Method to test a Methods function.
      */
-    public static void demoTest() {
+    public void demoTest(Dice[] dice) {
         Dice.roll(dice);
         System.out.println("1. Dice Value " + dice[0].getFaceValue());
         System.out.println("2. Dice Value " + dice[1].getFaceValue());
         System.out.println("3. Dice Value " + dice[2].getFaceValue());
         System.out.println("4. Dice Value " + dice[3].getFaceValue());
         System.out.println("5. Dice Value " + dice[4].getFaceValue());
-        System.out.println(Dice.showDice(dice));
 
         System.out.println("Sum of all 5 Dice: " + Dice.sumFaces(dice));
-        System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();System.out.println(currentPlayer().getName());
-        nextPlayer();
+        System.out.println(Arrays.toString(players[0].score.sortNumbers()));
     }
     /**
      * Gameplay Method
@@ -40,7 +33,7 @@ public class Game {
     /**
      * Method to reroll Dice (2nd and 3rd roll)
      */
-    private static void rerollDice() {
+    private void rerollDice() {
         for (int i = 0; i < 2; i++) {
             System.out.println("möchtest du Würfel 1 nocheinmal würfeln? dann schreibe 1");
 
@@ -84,7 +77,7 @@ public class Game {
     /**
      * Method to get the next Player Object.
      */
-    private static void nextPlayer() {
+    private void nextPlayer() {
         if (players.length-1 == currentPlayerIndex) {
             currentPlayerIndex = 0;
         } else {
@@ -96,7 +89,7 @@ public class Game {
      * Method to get the current Player Object.
      * @return Player Object with the current turn.
      */
-    private static Player currentPlayer() {
+    public Player currentPlayer() {
         return players[currentPlayerIndex];
     }
 }
