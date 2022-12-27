@@ -53,18 +53,4 @@ public class Dice {
             d.setFaceValue((new Random().nextInt(1, 7)));
         }
     }
-
-    /**
-     * Method to sum all Dice faceValues.
-     *
-     * @param dice Dice to be summed up
-     * @return sum
-     */
-    public static int sumFaces(Dice... dice) {
-        int sum = 0;
-        for (final Dice d : dice) {
-            sum += d.getFaceValue();
-        }
-        return sum;
-    }
 }

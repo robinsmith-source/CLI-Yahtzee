@@ -3,26 +3,35 @@ package org.example.Game;
 public class Player {
     private final String name;
     final Score score;
-
+    private final Dice[] dice;
 
 
     public Player(final String name) {
         this.name = name;
-        this.score = new Score();
+        this.dice = new Dice[]{new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
+        this.score = new Score(this.getDice());
     }
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter Method for a Players Score
+     * @return Score of the Player
+     */
     public String getScore() {
-        return String.format("%s hat %s Punkte.",this.getName(),this.score.getScore());
+        String output = String.format(" Scorecard from %10s.\n+--------------------------+\n", this.getName());
+        for (int i = 0; i < Score.getCombinationNames().length; i++) {
+            output += String.format("%6s | %2d\n", Score.getCombinationNames()[i], this.score.getPlayerScores()[i]);
+        }
+        return output;
     }
 
     /**
-     * Only for testing
-     * @param score score to be set
+     * Method to gain access over a Players 5 Dice Objects
+     * @return Array with Dice Objects
      */
-    public void setScore(int score) {
-        this.score.setScore(score);
+    public Dice[] getDice() {
+        return this.dice;
     }
 }
