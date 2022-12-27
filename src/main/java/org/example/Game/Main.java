@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Game;
 
 public class Main {
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};

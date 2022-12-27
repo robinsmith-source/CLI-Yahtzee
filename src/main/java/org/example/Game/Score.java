@@ -1,4 +1,4 @@
-package org.example;
+package org.example.Game;
 
 public class Score {
     private int score = 0;
