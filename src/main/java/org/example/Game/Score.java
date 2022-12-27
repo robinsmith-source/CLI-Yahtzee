@@ -3,8 +3,7 @@ package org.example.Game;
 public class Score {
     private final Dice[] dice;
 
-    private static int[] combinationsScores = {1, 2, 3, 4, 5, 6};
-    private static String[] combinationNames = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes"};
+    private static String[] combinationNames = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes", "Three Of a Kind", "Four Of a Kind"};
 
     private int[] playerScores = new int[13];
 
@@ -31,14 +30,14 @@ public class Score {
         return playerScores;
     }
 
-    private int[] possibleCombinationsScoresUpperBlock() {
-        int[] combinations = new int[combinationsScores.length];
+    private int[] possibleCombinationsScoresUpperSection() {
+        int[] combinations = new int[combinationNames.length];
         if (isAces()) combinations[0] = sortNumbers()[0];
-        if (isTwos()) combinations[1] = combinationsScores[1] * sortNumbers()[1];
-        if (isThrees()) combinations[2] = combinationsScores[2] * sortNumbers()[2];
-        if (isFours()) combinations[3] = combinationsScores[3] * sortNumbers()[3];
-        if (isFives()) combinations[4] = combinationsScores[4] * sortNumbers()[4];
-        if (isSixes()) combinations[5] = combinationsScores[5] * sortNumbers()[5];
+        if (isTwos()) combinations[1] = 2 * sortNumbers()[1];
+        if (isThrees()) combinations[2] = 3 * sortNumbers()[2];
+        if (isFours()) combinations[3] = 4 * sortNumbers()[3];
+        if (isFives()) combinations[4] = 5 * sortNumbers()[4];
+        if (isSixes()) combinations[5] = 6 * sortNumbers()[5];
 
         return combinations;
     }
@@ -46,17 +45,17 @@ public class Score {
     public String possibleCombinationsScoresToString() {
         String output = "";
 
-        for (int i = 0; i < combinationsScores.length; i++) {
-            if (possibleCombinationsScoresUpperBlock()[i] > 0 && playerScores[i] == 0) {
-                output += String.format("%2d | %-6s : %2d Points\n", i + 1, combinationNames[i], possibleCombinationsScoresUpperBlock()[i]);
+        for (int i = 0; i < combinationNames.length; i++) {
+            if (possibleCombinationsScoresUpperSection()[i] > 0 && playerScores[i] == 0) {
+                output += String.format("%2d | %-6s : %2d Points\n", i + 1, combinationNames[i], possibleCombinationsScoresUpperSection()[i]);
             }
         }
         return output;
     }
 
     public void setOnCombination(int indexOfCombination) {
-        if (indexOfCombination <= combinationsScores.length && playerScores[indexOfCombination - 1] == 0) {
-            playerScores[indexOfCombination - 1] = possibleCombinationsScoresUpperBlock()[indexOfCombination - 1];
+        if (indexOfCombination <= combinationNames.length && playerScores[indexOfCombination - 1] == 0) {
+            playerScores[indexOfCombination - 1] = possibleCombinationsScoresUpperSection()[indexOfCombination - 1];
         }
     }
 
@@ -85,8 +84,26 @@ public class Score {
         return sortNumbers()[5] >= 1;
     }
 
+
+    private boolean isThreeOfAKind() {
+        boolean output = false;
+        for (final int i : sortNumbers()) {
+            output = i >= 3;
+        }
+        return output;
+    }
+
+    private boolean isFourOfAKind() {
+        boolean output = false;
+        for (final int i : sortNumbers()) {
+            output = i >= 4;
+        }
+        return output;
+    }
+
+
     /**
-     * Helper method for the upper Section.
+     * Helper method
      *
      * @return Ordered count of numbers rolled.
      */

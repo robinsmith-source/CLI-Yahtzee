@@ -32,7 +32,7 @@ public class Game {
             System.out.print("Choose a category to score: ");
             currentPlayer().score.setOnCombination(scan.nextInt());
             System.out.println(currentPlayer().getScore());
-            nextPlayer();
+
         }
     }
 
