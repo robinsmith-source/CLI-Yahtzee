@@ -15,7 +15,6 @@ public class Game {
     public static void demoTest() {
         while (true) {
             Dice.roll(currentPlayer().getDice());
-
             /*
             System.out.println("1. Dice Value " + currentPlayer().getDice()[0].getFaceValue());
             System.out.println("2. Dice Value " + currentPlayer().getDice()[1].getFaceValue());
@@ -31,6 +30,8 @@ public class Game {
             System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
             System.out.print("Choose a category to score: ");
             currentPlayer().score.setOnCombination(scan.nextInt());
+
+
             System.out.println(currentPlayer().getScore());
 
         }

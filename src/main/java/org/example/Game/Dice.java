@@ -35,11 +35,11 @@ public class Dice {
 
     public static String showDice(Dice[] dice) {
         return String.format("""
-                +------+---+---+---+---+---+
-                | Dice | 1 | 2 | 3 | 4 | 5 |
-                +------+---+---+---+---+---+
-                | Face | %d | %d | %d | %d | %d |
-                +------+---+---+---+---+---+
+                +--------+---+---+---+---+---+
+                |  Dice  | 1 | 2 | 3 | 4 | 5 |
+                +--------+---+---+---+---+---+
+                |  Face  | %d | %d | %d | %d | %d |
+                +--------+---+---+---+---+---+
                 """, dice[0].getFaceValue(), dice[1].getFaceValue(), dice[2].getFaceValue(), dice[3].getFaceValue(), dice[4].getFaceValue());
     }
 

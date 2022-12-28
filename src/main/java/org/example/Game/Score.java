@@ -1,11 +1,13 @@
 package org.example.Game;
 
+import java.util.Arrays;
+
 public class Score {
     private final Dice[] dice;
 
-    private static String[] combinationNames = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes", "Three Of a Kind", "Four Of a Kind"};
+    private static final String[] combinationNames = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes", "3 Of a Kind", "4 Of a Kind", "Full House", "Sm. Straight", "Lg. Straight", "Yahtzee", "Chance"};
 
-    private int[] playerScores = new int[13];
+    private final int[] playerScores = new int[13];
 
 
     /**
@@ -30,7 +32,8 @@ public class Score {
         return playerScores;
     }
 
-    private int[] possibleCombinationsScoresUpperSection() {
+    private int[] possibleCombinationsScores() {
+        //Upper Section
         int[] combinations = new int[combinationNames.length];
         if (isAces()) combinations[0] = sortNumbers()[0];
         if (isTwos()) combinations[1] = 2 * sortNumbers()[1];
@@ -39,15 +42,37 @@ public class Score {
         if (isFives()) combinations[4] = 5 * sortNumbers()[4];
         if (isSixes()) combinations[5] = 6 * sortNumbers()[5];
 
+        //LowerSection
+        if (is3OfAKind()) {
+            for (int i = 0; i < 6; i++) {
+                if (sortNumbers()[i] >= 3) combinations[6] = 3 * (i + 1);
+            }
+        }
+        if (is4OfAKind()) {
+            for (int i = 0; i < 6; i++) {
+                if (sortNumbers()[i] >= 4) combinations[7] = 4 * (i + 1);
+            }
+        }
+        if (isFullHouse()) combinations[8] = 25;
+        if (isSmStraight()) combinations[9] = 30;
+        if (isLgStraight()) combinations[10] = 40;
+        if (isYahtzee()) combinations[11] = 50;
+        if (isChance()) {
+            int sum = 0;
+            for (final Dice d : dice) {
+                sum += d.getFaceValue();
+            }
+            combinations[12] = sum;
+        }
+
         return combinations;
     }
 
     public String possibleCombinationsScoresToString() {
         String output = "";
-
         for (int i = 0; i < combinationNames.length; i++) {
-            if (possibleCombinationsScoresUpperSection()[i] > 0 && playerScores[i] == 0) {
-                output += String.format("%2d | %-6s : %2d Points\n", i + 1, combinationNames[i], possibleCombinationsScoresUpperSection()[i]);
+            if (possibleCombinationsScores()[i] > 0 && playerScores[i] == 0) {
+                output += String.format(" %2d | %-12s -> %2d pt/s\n", i + 1, combinationNames[i], possibleCombinationsScores()[i]);
             }
         }
         return output;
@@ -55,7 +80,7 @@ public class Score {
 
     public void setOnCombination(int indexOfCombination) {
         if (indexOfCombination <= combinationNames.length && playerScores[indexOfCombination - 1] == 0) {
-            playerScores[indexOfCombination - 1] = possibleCombinationsScoresUpperSection()[indexOfCombination - 1];
+            playerScores[indexOfCombination - 1] = possibleCombinationsScores()[indexOfCombination - 1];
         }
     }
 
@@ -84,21 +109,51 @@ public class Score {
         return sortNumbers()[5] >= 1;
     }
 
-
-    private boolean isThreeOfAKind() {
-        boolean output = false;
+    private boolean is3OfAKind() {
         for (final int i : sortNumbers()) {
-            output = i >= 3;
+            if (i >= 3) return true;
         }
-        return output;
+        return false;
     }
 
-    private boolean isFourOfAKind() {
-        boolean output = false;
+    private boolean is4OfAKind() {
         for (final int i : sortNumbers()) {
-            output = i >= 4;
+            if (i >= 4) return true;
         }
-        return output;
+        return false;
+    }
+
+    private boolean isFullHouse() {
+        int[] amountSortedDice = Arrays.copyOf(sortNumbers(), 6);
+        Arrays.sort(amountSortedDice);
+        return amountSortedDice[4] == 2 && amountSortedDice[5] == 3;
+    }
+
+    private boolean isSmStraight() {
+        for (int i = 0; i < 3; i++) {
+            if (sortNumbers()[i] >= 1 && sortNumbers()[i + 1] >= 1 && sortNumbers()[i + 2] >= 1 && sortNumbers()[i + 3] >= 1)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isLgStraight() {
+        for (int i = 0; i < 2; i++) {
+            if (sortNumbers()[i] >= 1 && sortNumbers()[i + 1] >= 1 && sortNumbers()[i + 2] >= 1 && sortNumbers()[i + 3] >= 1 && sortNumbers()[i + 4] >= 1)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean isYahtzee() {
+        for (final int i : sortNumbers()) {
+            if (i == 5) return true;
+        }
+        return false;
+    }
+
+    private boolean isChance() {
+        return playerScores[12] == 0;
     }
 
 
@@ -108,18 +163,11 @@ public class Score {
      * @return Ordered count of numbers rolled.
      */
     private int[] sortNumbers() {
-        int countOne = 0, countTwo = 0, numberThree = 0, countFour = 0, countFive = 0, countSix = 0;
-        for (Dice d : this.dice) {
-            switch (d.getFaceValue()) {
-                case 1 -> countOne++;
-                case 2 -> countTwo++;
-                case 3 -> numberThree++;
-                case 4 -> countFour++;
-                case 5 -> countFive++;
-                case 6 -> countSix++;
-            }
+        int[] sortedDiceNumbers = new int[6];
+        for (final Dice d : this.dice) {
+            sortedDiceNumbers[d.getFaceValue() - 1]++;
         }
-        return new int[]{countOne, countTwo, numberThree, countFour, countFive, countSix};
+        return sortedDiceNumbers;
     }
 }
 
