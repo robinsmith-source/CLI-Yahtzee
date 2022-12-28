@@ -44,12 +44,12 @@ public class Score {
 
         //LowerSection
         if (is3OfAKind()) {
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < sortNumbers().length; i++) {
                 if (sortNumbers()[i] >= 3) combinations[6] = 3 * (i + 1);
             }
         }
         if (is4OfAKind()) {
-            for (int i = 0; i < 6; i++) {
+            for (int i = 0; i < sortNumbers().length; i++) {
                 if (sortNumbers()[i] >= 4) combinations[7] = 4 * (i + 1);
             }
         }
@@ -116,6 +116,7 @@ public class Score {
         return false;
     }
 
+
     private boolean is4OfAKind() {
         for (final int i : sortNumbers()) {
             if (i >= 4) return true;
@@ -124,7 +125,7 @@ public class Score {
     }
 
     private boolean isFullHouse() {
-        int[] amountSortedDice = Arrays.copyOf(sortNumbers(), 6);
+        int[] amountSortedDice = Arrays.copyOf(sortNumbers(), sortNumbers().length);
         Arrays.sort(amountSortedDice);
         return amountSortedDice[4] == 2 && amountSortedDice[5] == 3;
     }
@@ -163,7 +164,7 @@ public class Score {
      * @return Ordered count of numbers rolled.
      */
     private int[] sortNumbers() {
-        int[] sortedDiceNumbers = new int[6];
+        int[] sortedDiceNumbers = new int[this.dice.length];
         for (final Dice d : this.dice) {
             sortedDiceNumbers[d.getFaceValue() - 1]++;
         }
