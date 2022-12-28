@@ -6,6 +6,9 @@ import java.util.Random;
  * Dice Class for the 5 dice instances.
  */
 public class Dice {
+    /**
+     *  Face Value of the Dice.
+     */
     private int faceValue;
 
     /**
@@ -27,12 +30,17 @@ public class Dice {
     /**
      * Default Getter Method for faceValue Variable.
      *
-     * @return Face value
+     * @return Face Value
      */
     public int getFaceValue() {
         return faceValue;
     }
 
+    /**
+     * Method to get a String representation of the Dice.
+     * @param dice Dice Array to get the String representation from.
+     * @return String representation of the Dice.
+     */
     public static String showDice(Dice[] dice) {
         return String.format("""
                 +--------+---+---+---+---+---+
@@ -45,7 +53,6 @@ public class Dice {
 
     /**
      * Method to roll a die (Random Value [1;7[ will be assigned to faceValue Variable via setFaceValue Method).
-     *
      * @param dice Die/Dice to be rolled converted to an Array in between the Method.
      */
     public static void roll(Dice... dice) {

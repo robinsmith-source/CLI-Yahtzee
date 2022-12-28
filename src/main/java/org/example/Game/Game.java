@@ -1,16 +1,31 @@
 package org.example.Game;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Game Class for the Yahtzee Game.
+ */
 public class Game {
+    /**
+     * Current player index.
+     */
     private static int currentPlayerIndex = 0;
+
+    /**
+     * Player Array for the player instances.
+     */
     private static final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
+
+    //Dice Array for old rerollDice() Method. (Not used anymore)
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
+
+    /**
+     * Scanner Instance for the Game.
+     */
     private static final Scanner scan = new Scanner(System.in);
 
     /**
-     * Method to test a Methods function.
+     * Method to test gameplay functionality.
      */
     public static void demoTest() {
         while (true) {
@@ -36,10 +51,9 @@ public class Game {
     }
 
     /**
-     * Gameplay Method
+     * Method to play the game.
      */
     public static void play() {
-
     }
 
     /**
