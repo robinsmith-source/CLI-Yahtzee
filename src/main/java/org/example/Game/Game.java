@@ -47,6 +47,7 @@ public class Game {
             currentPlayer().score.setOnCombination(scan.nextInt());
 
             System.out.println(currentPlayer().getScore());
+
         }
     }
 

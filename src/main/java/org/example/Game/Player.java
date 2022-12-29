@@ -1,5 +1,7 @@
 package org.example.Game;
 
+
+
 /**
  * Player Class for the player instances.
  */
@@ -21,6 +23,7 @@ public class Player {
 
     /**
      * Default Player constructor that assigns the default Value (0) to faceValue variable.
+     *
      * @param name Player Name
      */
     public Player(final String name) {
@@ -31,6 +34,7 @@ public class Player {
 
     /**
      * Default Getter Method for name Variable.
+     *
      * @return Player Name
      */
     public String getName() {
@@ -39,19 +43,26 @@ public class Player {
 
     /**
      * Default Getter Method for a Players Score
+     *
      * @return Score of the Player
      */
     public String getScore() {
-        String output = String.format("\n Scorecard from %10s.\n+----------------------------+\n", this.getName());
+        String output = String.format("\n Scorecard from %12s.\n+----------------------------+\n", this.getName());
         for (int i = 0; i < Score.getCombinationNames().length; i++) {
-            output += String.format("| %-20s -> %2d |\n", Score.getCombinationNames()[i], this.score.getPlayerScores()[i]);
+
+            if (this.score.getPlayerScores()[i] == -1) {
+                output += String.format("| %2d | %-15s ##  X |\n", i + 1, Score.getCombinationNames()[i]);
+            } else {
+                output += String.format("| %2d | %-15s -> %2d |\n", i + 1, Score.getCombinationNames()[i], this.score.getPlayerScores()[i]);
+            }
         }
-        output += "+----------------------------+\n";
+        output += String.format("+----------------------------+\n| Total Score: %13d |\n+----------------------------+\n", this.score.getPlayerFinalScore());
         return output;
     }
 
     /**
      * Default Getter Method for dice Variable.
+     *
      * @return Dice Array
      */
     public Dice[] getDice() {
