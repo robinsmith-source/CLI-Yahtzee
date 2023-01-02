@@ -15,7 +15,6 @@ public class Game {
      * Player Array for the player instances.
      */
     private static final Player[] players = {new Player("Gomme"),new Player("Milchbubi")};
-
     //Dice Array for old rerollDice() Method. (Not used anymore)
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
 
@@ -74,7 +73,7 @@ public class Game {
             do {
                 System.out.print("Choose a category to score: ");
                 indexOfCombination = scan.nextInt();
-            } while (currentPlayer().score.isCombinationSet(indexOfCombination) || indexOfCombination < 1 || indexOfCombination > 13);
+            } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationSet(indexOfCombination));
             currentPlayer().score.setOnCombination(indexOfCombination);
 
             nextPlayer();
