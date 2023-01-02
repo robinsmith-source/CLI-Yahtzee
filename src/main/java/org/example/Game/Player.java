@@ -46,8 +46,9 @@ public class Player {
      *
      * @return Score of the Player
      */
-    public String getScore() {
-        String output = String.format("\n Scorecard from %12s.\n+----------------------------+\n", this.getName());
+    public String getScorecard() {
+        String output = "+----------------------------+";
+        output += String.format("\n| Scorecard from %-11s |\n+----------------------------+\n", this.getName()+".");
         for (int i = 0; i < Score.getCombinationNames().length; i++) {
 
             if (this.score.getPlayerScores()[i] == -1) {

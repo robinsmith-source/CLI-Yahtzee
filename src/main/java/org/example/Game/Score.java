@@ -138,6 +138,10 @@ public class Score {
         }
     }
 
+    public boolean isCombinationSet(int indexOfCombination) {
+        return playerScores[indexOfCombination - 1] != 0;
+    }
+
     /**
      * Method to check if the combination "Aces" is valid.
      *

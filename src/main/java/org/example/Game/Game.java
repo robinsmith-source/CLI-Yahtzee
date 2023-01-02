@@ -14,7 +14,7 @@ public class Game {
     /**
      * Player Array for the player instances.
      */
-    private static final Player[] players = {new Player("Gomme"), new Player("Trolololol"), new Player("Gommemode")};
+    private static final Player[] players = {new Player("Gomme"),new Player("Milchbubi")};
 
     //Dice Array for old rerollDice() Method. (Not used anymore)
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
@@ -44,9 +44,10 @@ public class Game {
 
             System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
             System.out.print("Choose a category to score: ");
+
             currentPlayer().score.setOnCombination(scan.nextInt());
 
-            System.out.println(currentPlayer().getScore());
+            System.out.println(currentPlayer().getScorecard());
 
         }
     }
@@ -55,7 +56,35 @@ public class Game {
      * Method to play the game.
      */
     public static void play() {
+        for (int i = 0; i < 13; i++) {
+            //10 characters Playername length.
+            System.out.printf("""
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| It's %-17s     |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n""",currentPlayer().getName()+"s turn.");
+            System.out.println(currentPlayer().getScorecard());
+            Dice.roll(currentPlayer().getDice());
+            System.out.println(Dice.showDice(currentPlayer().getDice()));
+
+            //TODO reroll
+
+
+            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
+            int indexOfCombination;
+            do {
+                System.out.print("Choose a category to score: ");
+                indexOfCombination = scan.nextInt();
+            } while (currentPlayer().score.isCombinationSet(indexOfCombination) || indexOfCombination < 1 || indexOfCombination > 13);
+            currentPlayer().score.setOnCombination(indexOfCombination);
+
+            nextPlayer();
+        }
+        //Example
+        for (int i = 0; i < players.length; i++) {
+            System.out.println(players[i].getName() + "s Final Score: " + players[i].score.getPlayerFinalScore());
+        }
     }
+
 
     /**
      * Method to reroll Dice (2nd and 3rd roll)
