@@ -9,7 +9,8 @@ public class Main {
      * @param args Command Line Arguments
      */
     public static void main(String[] args) {
-        Game.play();
+        Game game = new Game();
+        game.play();
         //Game.demoTest();
     }
 }

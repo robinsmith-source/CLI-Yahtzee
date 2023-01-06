@@ -14,7 +14,7 @@ public class Player {
     /**
      * Score Instance for the Player.
      */
-    final Score score;
+    public final Score score;
 
     /**
      * Dice Array for the 5 dice instances.

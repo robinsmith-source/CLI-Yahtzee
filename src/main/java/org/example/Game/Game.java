@@ -9,12 +9,14 @@ public class Game {
     /**
      * Current player index.
      */
-    private static int currentPlayerIndex = 0;
+    private int currentPlayerIndex = 0;
+
 
     /**
      * Player Array for the player instances.
      */
-    private static final Player[] players = {new Player("Gomme"),new Player("Milchbubi")};
+    private final Player[] players = {new Player("Gomme"), new Player("Milchbubi")};
+
     //Dice Array for old rerollDice() Method. (Not used anymore)
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
 
@@ -24,20 +26,20 @@ public class Game {
     private static final Scanner scan = new Scanner(System.in);
 
     /**
+     * Default Game constructor.
+     */
+    public Game() {
+        // initPlayers();
+    }
+
+    /**
      * Method to test gameplay functionality.
      */
-    public static void demoTest() {
+    public void demoTest() {
         while (true) {
             Dice.roll(currentPlayer().getDice());
-            /*
-            System.out.println("1. Dice Value " + currentPlayer().getDice()[0].getFaceValue());
-            System.out.println("2. Dice Value " + currentPlayer().getDice()[1].getFaceValue());
-            System.out.println("3. Dice Value " + currentPlayer().getDice()[2].getFaceValue());
-            System.out.println("4. Dice Value " + currentPlayer().getDice()[3].getFaceValue());
-            System.out.println("5. Dice Value " + currentPlayer().getDice()[4].getFaceValue());
-*/
 
-            //    System.out.println(Arrays.toString(players[0].score.sortNumbers()));
+
             System.out.println(Dice.showDice(currentPlayer().getDice()));
 
 
@@ -52,23 +54,36 @@ public class Game {
     }
 
     /**
+     * Method to initialize the players. Isn't final yet.
+     */
+    public void initPlayers() {
+        System.out.print("Put in the players names seperated with a ',': ");
+        String playerNames = scan.nextLine();
+        String[] playerNamesArray = playerNames.split(",");
+        for (int i = 0; i < playerNamesArray.length; i++) {
+            players[i] = new Player(playerNamesArray[i]);
+        }
+    }
+
+    /**
      * Method to play the game.
      */
-    public static void play() {
+    public void play() {
         for (int i = 0; i < 13; i++) {
             //10 characters Playername length.
             System.out.printf("""
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-| It's %-17s     |
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~+\n""",currentPlayer().getName()+"s turn.");
+                    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+                    | It's %-17s     |
+                    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+                    """, currentPlayer().getName() + "s turn.");
             System.out.println(currentPlayer().getScorecard());
             Dice.roll(currentPlayer().getDice());
             System.out.println(Dice.showDice(currentPlayer().getDice()));
 
+            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
+
             //TODO reroll
 
-
-            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
             int indexOfCombination;
             do {
                 System.out.print("Choose a category to score: ");
@@ -79,11 +94,10 @@ public class Game {
             nextPlayer();
         }
         //Example
-        for (int i = 0; i < players.length; i++) {
-            System.out.println(players[i].getName() + "s Final Score: " + players[i].score.getPlayerFinalScore());
+        for (final Player player : players) {
+            System.out.println(player.getName() + "s Final Score: " + player.score.getPlayerFinalScore());
         }
     }
-
 
     /**
      * Method to reroll Dice (2nd and 3rd roll)
@@ -131,7 +145,7 @@ public class Game {
     /**
      * Method to get the next Player Object.
      */
-    private static void nextPlayer() {
+    private void nextPlayer() {
         if (players.length - 1 == currentPlayerIndex) {
             currentPlayerIndex = 0;
         } else {
@@ -144,7 +158,7 @@ public class Game {
      *
      * @return Player Object with the current turn.
      */
-    public static Player currentPlayer() {
+    private Player currentPlayer() {
         return players[currentPlayerIndex];
     }
 }
