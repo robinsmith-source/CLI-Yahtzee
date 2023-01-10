@@ -15,7 +15,7 @@ public class Game {
     /**
      * Player Array for the player instances.
      */
-    private final Player[] players = {new Player("Gomme"), new Player("Milchbubi")};
+    private final Player[] players;
 
     //Dice Array for old rerollDice() Method. (Not used anymore)
     private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
@@ -28,8 +28,8 @@ public class Game {
     /**
      * Default Game constructor.
      */
-    public Game() {
-        // initPlayers();
+    public Game(Player[] players) {
+       this.players = players;
     }
 
     /**
@@ -50,18 +50,6 @@ public class Game {
 
             System.out.println(currentPlayer().getScorecard());
 
-        }
-    }
-
-    /**
-     * Method to initialize the players. Isn't final yet.
-     */
-    public void initPlayers() {
-        System.out.print("Put in the players names seperated with a ',': ");
-        String playerNames = scan.nextLine();
-        String[] playerNamesArray = playerNames.split(",");
-        for (int i = 0; i < playerNamesArray.length; i++) {
-            players[i] = new Player(playerNamesArray[i]);
         }
     }
 
