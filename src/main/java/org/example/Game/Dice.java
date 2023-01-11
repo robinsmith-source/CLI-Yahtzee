@@ -19,11 +19,11 @@ public class Dice {
     }
 
     /**
-     * Private Setter Method for faceValue Variable. Mainly used by roll Method.
+     * Setter Method for faceValue Variable. Mainly used by roll Method. Public only for Unit Testing
      *
      * @param faceValue Face value
      */
-    private void setFaceValue(final int faceValue) {
+    public void setFaceValue(final int faceValue) {
         this.faceValue = faceValue;
     }
 
@@ -60,4 +60,6 @@ public class Dice {
             d.setFaceValue((new Random().nextInt(1, 7)));
         }
     }
+
+
 }

@@ -68,11 +68,11 @@ public class Score {
     }
 
     /**
-     * Method to calculate the score of a player.
+     * Method to calculate the score of a player. Public only for Unit Testing
      *
      * @return A Players possible combinations with the Score that can be scored with setting it.
      */
-    private int[] possibleCombinationsScores() {
+    public int[] possibleCombinationsScores() {
         //Upper Section
         int[] combinations = new int[combinationNames.length];
         if (isAces() && this.playerScores[0] == 0) combinations[0] = sortNumbers()[0];
