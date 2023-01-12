@@ -77,9 +77,13 @@ public class Game {
      */
     private void rerollDice() {
         for (int ln = 1; ln <= 2; ln++) {
-            System.out.print("Put in the dice you want to roll seperated with a ','.\nEnter to skip! (1-5): ");
+            String input;
 
-            String input = scan.nextLine();
+            do {
+                System.out.print("Put in the dice you want to roll seperated with a ','.\nEnter to skip! (1-5): ");
+                input = scan.nextLine();
+            } while (!input.matches("[1-5,]*"));
+
             if (input.isEmpty()) {
                 if (ln == 1) {
                     return;
