@@ -119,7 +119,6 @@ public class Score {
         String output = "";
         for (int i = 0; i < combinationNames.length; i++) {
             if (possibleCombinationsScores()[i] > 0) {
-                //TODO Warning: String concentration in loop --> StringBuffer? StringBuilder?
                 output += String.format(" %2d | %-12s -> %2d pt/s\n", i + 1, combinationNames[i], possibleCombinationsScores()[i]);
             }
         }

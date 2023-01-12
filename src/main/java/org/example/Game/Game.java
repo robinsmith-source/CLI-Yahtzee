@@ -36,7 +36,13 @@ public class Game {
     public void play() {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < players.length; j++) {
+                System.out.print("""
+                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+                        |     START YAHTZEE GAME     |
+                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+""");
+                scan.nextLine();
                 System.out.printf("""
+                        
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
                         | %-10s it's your turn! |
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
@@ -48,6 +54,7 @@ public class Game {
                 System.out.println(Dice.showDice(currentPlayer().getDice()));
 
                 System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
+
 
                 rerollDice();
 
@@ -76,8 +83,9 @@ public class Game {
         for (int ln = 0; ln < 2; ln++) {
             System.out.println("Put in the dice you want to roll seperated with a ',': ");
             System.out.print("Enter to skip!");
+
             String input = scan.nextLine();
-            if (input.equals("")) {
+            if (input.isEmpty()) {
                 System.out.println("Skipped!");
             } else {
                 String[] diceToReRoll = input.split(",");
@@ -89,7 +97,9 @@ public class Game {
 
             System.out.println(Dice.showDice(currentPlayer().getDice()));
             System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
+
         }
+
     }
 
     /**
