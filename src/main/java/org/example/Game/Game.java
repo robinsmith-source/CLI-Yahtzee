@@ -81,7 +81,7 @@ public class Game {
             if (input.equals("")) {
                 System.out.println("Skipped!");
             } else {
-            String[] diceToReRoll = input.split(",");
+                String[] diceToReRoll = input.split(",");
                 for (String s : diceToReRoll) {
                     int diceNum = Integer.parseInt(s);
                     Dice.roll(currentPlayer().getDice()[diceNum-1]);
