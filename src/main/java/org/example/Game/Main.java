@@ -25,14 +25,17 @@ public class Main {
     public static Player[] initPlayers() {
         final Scanner scan = new Scanner(System.in);
 
-        System.out.print("Put in the players names seperated with a ',': ");
+        System.out.print("Put in the players names seperated with a ','.\nExample: 'Player1, Player2, Player3'\n\nPlayers: ");
         String[] playerNamesArray = scan.nextLine().split(",");
         Player[] players = new Player[playerNamesArray.length];
 
         for (int i = 0; i < playerNamesArray.length; i++) {
-            players[i] = new Player(playerNamesArray[i]);
+        if (playerNamesArray[i].length() > 10) {
+            players[i] = new Player(playerNamesArray[i].substring(0, 10));
+            } else {
+                players[i] = new Player(playerNamesArray[i].strip());
+            }
         }
-
         return players;
     }
 }

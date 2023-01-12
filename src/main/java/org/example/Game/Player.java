@@ -57,7 +57,7 @@ public class Player {
                 output += String.format("| %2d | %-15s -> %2d |\n", i + 1, Score.getCombinationNames()[i], this.score.getPlayerScores()[i]);
             }
         }
-        output += String.format("+----------------------------+\n| Total Score: %13d |\n+----------------------------+\n", this.score.getPlayerFinalScore());
+        output += String.format("+----------------------------+\n| Total Score:%14d |\n+----------------------------+\n", this.score.getPlayerFinalScore());
         return output;
     }
 

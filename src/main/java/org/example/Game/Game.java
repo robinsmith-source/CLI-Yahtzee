@@ -36,17 +36,12 @@ public class Game {
     public void play() {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < players.length; j++) {
-                System.out.print("""
-                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                        |     START YAHTZEE GAME     |
-                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+""");
-                scan.nextLine();
                 System.out.printf("""
                         
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                        | %-10s it's your turn! |
+                        | %-26s |
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                        """, currentPlayer().getName());
+                        """, currentPlayer().getName()+" it's your turn!");
 
 
                 System.out.println(currentPlayer().getScorecard());
@@ -55,15 +50,16 @@ public class Game {
 
                 System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
 
-
                 rerollDice();
 
                 int indexOfCombination;
                 do {
                     System.out.print("Choose a category to score: ");
                     indexOfCombination = scan.nextInt();
+                    scan.nextLine(); //Clears the Scanner buffer.
                 } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationScored(indexOfCombination));
                 currentPlayer().score.setOnCombination(indexOfCombination);
+                System.out.println(currentPlayer().getScorecard());
 
                 nextPlayer();
             }
@@ -80,13 +76,16 @@ public class Game {
      * Method to reroll Dice (2nd and 3rd roll)
      */
     private void rerollDice() {
-        for (int ln = 0; ln < 2; ln++) {
-            System.out.println("Put in the dice you want to roll seperated with a ',': ");
-            System.out.print("Enter to skip!");
+        for (int ln = 1; ln <= 2; ln++) {
+            System.out.print("Put in the dice you want to roll seperated with a ','.\nEnter to skip! (1-5): ");
 
             String input = scan.nextLine();
             if (input.isEmpty()) {
-                System.out.println("Skipped!");
+                if (ln == 1) {
+                    return;
+                } else {
+                System.out.println("Skipped!\n");
+                }
             } else {
                 String[] diceToReRoll = input.split(",");
                 for (String s : diceToReRoll) {
@@ -97,9 +96,7 @@ public class Game {
 
             System.out.println(Dice.showDice(currentPlayer().getDice()));
             System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
-
         }
-
     }
 
     /**
