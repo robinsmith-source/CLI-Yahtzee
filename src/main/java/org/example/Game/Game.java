@@ -58,33 +58,38 @@ public class Game {
      */
     public void play() {
         for (int i = 0; i < 13; i++) {
-            //10 characters Playername length.
-            System.out.printf("""
-                    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                    | It's %-17s     |
-                    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                    """, currentPlayer().getName() + "s turn.");
-            System.out.println(currentPlayer().getScorecard());
-            Dice.roll(currentPlayer().getDice());
-            System.out.println(Dice.showDice(currentPlayer().getDice()));
+            for (int j = 0; j < players.length; j++) {
+                //10 characters Playername length.
+                System.out.printf("""
+                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+                        | It's %-17s     |
+                        +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+                        """, currentPlayer().getName() + "s turn.");
+                System.out.println(currentPlayer().getScorecard());
+                Dice.roll(currentPlayer().getDice());
+                System.out.println(Dice.showDice(currentPlayer().getDice()));
 
-            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
+                System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
 
-            //TODO reroll
+                //TODO reroll
 
-            int indexOfCombination;
-            do {
-                System.out.print("Choose a category to score: ");
-                indexOfCombination = scan.nextInt();
-            } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationScored(indexOfCombination));
-            currentPlayer().score.setOnCombination(indexOfCombination);
+                int indexOfCombination;
+                do {
+                    System.out.print("Choose a category to score: ");
+                    indexOfCombination = scan.nextInt();
+                } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationScored(indexOfCombination));
+                currentPlayer().score.setOnCombination(indexOfCombination);
 
-            nextPlayer();
+                nextPlayer();
+            }
         }
-        //Example
         for (final Player player : players) {
-            System.out.println(player.getName() + "s Final Score: " + player.score.getPlayerFinalScore());
+            System.out.println(player.getScorecard());
         }
+        System.out.println("Game finished!");
+        System.out.println("Winner: " + getWinner().getName());
+        System.out.println("Final Score: " + getWinner().score.getPlayerFinalScore());
+
     }
 
     /**
@@ -148,5 +153,16 @@ public class Game {
      */
     private Player currentPlayer() {
         return players[currentPlayerIndex];
+    }
+
+    private Player getWinner() {
+        int highestScore = 0;
+        Player winner = null;
+        for (final Player player : players) {
+            if (player.score.getPlayerFinalScore() > highestScore) {
+                winner = player;
+            }
+        }
+        return winner;
     }
 }
