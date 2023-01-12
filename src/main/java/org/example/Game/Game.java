@@ -1,5 +1,4 @@
 package org.example.Game;
-
 import java.util.Scanner;
 
 /**
