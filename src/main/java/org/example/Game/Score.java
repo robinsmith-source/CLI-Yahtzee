@@ -68,9 +68,25 @@ public class Score {
     }
 
     /**
-     * Method to calculate the score of a player. Public only for Unit Testing
+     * Method to get all possible Scores from all valid combinations which can be scored by a player with his current Dice.
+     * Was implemented as private, but was changed to public for easier JUnit Testing
      *
-     * @return A Players possible combinations with the Score that can be scored with setting it.
+     * @return Array with the possible scores for each dice combination.
+     * <ol start="0">
+     *     <li>Aces -> Count of 1s</li>
+     *     <li>Twos -> Count of 2s</li>
+     *     <li>Threes -> Count of 3s</li>
+     *     <li>Fours -> Counts of 4s</li>
+     *     <li>Fives -> Counts of 5s</li>
+     *     <li>Sixes -> Counts of 6s</li>
+     *     <li>3 Of a Kind -> Sum of all dice</li>
+     *     <li>4 Of a Kind -> Sum of all dice</li>
+     *     <li>Full House -> 25</li>
+     *     <li>Sm. Straight -> 30</li>
+     *     <li>Lg. Straight -> 40</li>
+     *     <li>Yahtzee -> 50</li>
+     *     <li>Chance -> Sum of all dice</li>
+     *     </ol>
      */
     public int[] possibleCombinationsScores() {
         //Upper Section
@@ -82,28 +98,14 @@ public class Score {
         if (isFives() && this.playerScores[4] == 0) combinations[4] = 5 * sortNumbers()[4];
         if (isSixes() && this.playerScores[5] == 0) combinations[5] = 6 * sortNumbers()[5];
 
-        //LowerSection
-        if (is3OfAKind() && this.playerScores[6] == 0) {
-            for (int i = 0; i < sortNumbers().length; i++) {
-                if (sortNumbers()[i] >= 3) combinations[6] = 3 * (i + 1);
-            }
-        }
-        if (is4OfAKind() && this.playerScores[7] == 0) {
-            for (int i = 0; i < sortNumbers().length; i++) {
-                if (sortNumbers()[i] >= 4) combinations[7] = 4 * (i + 1);
-            }
-        }
+        //Lower Section
+        if (is3OfAKind() && this.playerScores[6] == 0) combinations[6] = sumOfDice();
+        if (is4OfAKind() && this.playerScores[7] == 0) combinations[7] = sumOfDice();
         if (isFullHouse() && this.playerScores[8] == 0) combinations[8] = 25;
         if (isSmStraight() && this.playerScores[9] == 0) combinations[9] = 30;
         if (isLgStraight() && this.playerScores[10] == 0) combinations[10] = 40;
         if (isYahtzee() && this.playerScores[11] == 0) combinations[11] = 50;
-        if (isChance() && this.playerScores[12] == 0) {
-            int sum = 0;
-            for (final Dice d : dice) {
-                sum += d.getFaceValue();
-            }
-            combinations[12] = sum;
-        }
+        if (isChance() && this.playerScores[12] == 0) combinations[12] = sumOfDice();
 
         return combinations;
     }
@@ -124,7 +126,8 @@ public class Score {
     }
 
     /**
-     * Method to set a combination to a score.
+     * Method to set the score of a combination on a players' scorecard.
+     * @see #possibleCombinationsScores() for checking which combinations are avaliable.
      *
      * @param indexOfCombination Index of the combination + 1
      */
@@ -138,7 +141,13 @@ public class Score {
         }
     }
 
-    public boolean isCombinationSet(int indexOfCombination) {
+    /**
+     * Method to check if a player has already scored on a specific combination.
+     * @param indexOfCombination Index of the combination + 1
+     *
+     * @return True if the combination is already scored, false if not.
+     */
+    public boolean isCombinationScored(int indexOfCombination) {
         return playerScores[indexOfCombination - 1] != 0;
     }
 
@@ -279,7 +288,6 @@ public class Score {
         return playerScores[12] == 0;
     }
 
-
     /**
      * Method to sort the dice by their face values.
      *
@@ -291,6 +299,19 @@ public class Score {
             sortedDiceNumbers[d.getFaceValue() - 1]++;
         }
         return sortedDiceNumbers;
+    }
+
+    /**
+     * Method to calculate the sum of all dice face values.
+     *
+     * @return Sum of all dice face values.
+     */
+    private int sumOfDice() {
+        int sum = 0;
+        for (final Dice d : this.dice) {
+            sum += d.getFaceValue();
+        }
+        return sum;
     }
 }
 

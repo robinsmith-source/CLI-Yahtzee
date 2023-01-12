@@ -1,10 +1,14 @@
-import org.example.Game.Dice;
+package org.example.Game;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * JUnit test Class for the Dice Class.
+ */
 public class DiceTesting {
     /**
      * Test if the initial face value of the Dice is correct.
+     * @see Dice#Dice()
      */
     @Test
     public void initialDiceTest() {
@@ -14,6 +18,7 @@ public class DiceTesting {
 
     /**
      * Test if the dice roll works correctly.
+     * @see Dice#roll(Dice...)
      */
     @Test
     public void rollDiceTest() {

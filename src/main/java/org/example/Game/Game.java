@@ -1,6 +1,5 @@
 package org.example.Game;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -77,7 +76,7 @@ public class Game {
             do {
                 System.out.print("Choose a category to score: ");
                 indexOfCombination = scan.nextInt();
-            } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationSet(indexOfCombination));
+            } while (indexOfCombination < 1 || indexOfCombination > 13 || currentPlayer().score.isCombinationScored(indexOfCombination));
             currentPlayer().score.setOnCombination(indexOfCombination);
 
             nextPlayer();
