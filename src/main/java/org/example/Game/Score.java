@@ -105,7 +105,7 @@ public class Score {
         if (isSmStraight() && this.playerScores[9] == 0) combinations[9] = 30;
         if (isLgStraight() && this.playerScores[10] == 0) combinations[10] = 40;
         if (isYahtzee() && this.playerScores[11] == 0) combinations[11] = 50;
-        if (isChance() && this.playerScores[12] == 0) combinations[12] = sumOfDice();
+        if (isChance()) combinations[12] = sumOfDice();
 
         return combinations;
     }
@@ -134,10 +134,10 @@ public class Score {
      * @param indexOfCombination Index of the combination + 1
      */
     public void setOnCombination(int indexOfCombination) {
-        if (indexOfCombination <= combinationNames.length && playerScores[indexOfCombination - 1] == 0 && possibleCombinationsScores()[indexOfCombination - 1] == 0) {
+        if (playerScores[indexOfCombination - 1] == 0 && possibleCombinationsScores()[indexOfCombination - 1] == 0) {
             playerScores[indexOfCombination - 1] = -1;
         } else {
-            if (indexOfCombination <= combinationNames.length && playerScores[indexOfCombination - 1] == 0) {
+            if (playerScores[indexOfCombination - 1] == 0) {
                 playerScores[indexOfCombination - 1] = possibleCombinationsScores()[indexOfCombination - 1];
             }
         }
