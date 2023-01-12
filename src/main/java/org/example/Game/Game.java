@@ -3,54 +3,32 @@ package org.example.Game;
 import java.util.Scanner;
 
 /**
- * Game Class for the Yahtzee Game.
+ * Game Class for the Yahtzee Gameplay.
  */
 public class Game {
+
     /**
      * Current player index.
      */
     private int currentPlayerIndex = 0;
-
 
     /**
      * Player Array for the player instances.
      */
     private final Player[] players;
 
-    //Dice Array for old rerollDice() Method. (Not used anymore)
-    private static final Dice[] dice = {new Dice(), new Dice(), new Dice(), new Dice(), new Dice()};
-
     /**
      * Scanner Instance for the Game.
      */
-    private static final Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
     /**
-     * Default Game constructor.
+     * Default Game constructor. Initializes the players.
+     *
+     * @see Main#initPlayers()
      */
     public Game(Player[] players) {
-       this.players = players;
-    }
-
-    /**
-     * Method to test gameplay functionality.
-     */
-    public void demoTest() {
-        while (true) {
-            Dice.roll(currentPlayer().getDice());
-
-
-            System.out.println(Dice.showDice(currentPlayer().getDice()));
-
-
-            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
-            System.out.print("Choose a category to score: ");
-
-            currentPlayer().score.setOnCombination(scan.nextInt());
-
-            System.out.println(currentPlayer().getScorecard());
-
-        }
+        this.players = players;
     }
 
     /**
@@ -59,19 +37,20 @@ public class Game {
     public void play() {
         for (int i = 0; i < 13; i++) {
             for (int j = 0; j < players.length; j++) {
-                //10 characters Playername length.
                 System.out.printf("""
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                        | It's %-17s     |
+                        | %-10s it's your turn! |
                         +~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
-                        """, currentPlayer().getName() + "s turn.");
+                        """, currentPlayer().getName());
+
+
                 System.out.println(currentPlayer().getScorecard());
                 Dice.roll(currentPlayer().getDice());
                 System.out.println(Dice.showDice(currentPlayer().getDice()));
 
                 System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
 
-                //TODO reroll
+                rerollDice();
 
                 int indexOfCombination;
                 do {
@@ -89,54 +68,35 @@ public class Game {
         System.out.println("Game finished!");
         System.out.println("Winner: " + getWinner().getName());
         System.out.println("Final Score: " + getWinner().score.getPlayerFinalScore());
-
     }
 
     /**
      * Method to reroll Dice (2nd and 3rd roll)
      */
-    private static void rerollDice() {
-        for (int i = 0; i < 2; i++) {
-            System.out.println("möchtest du Würfel 1 nocheinmal würfeln? dann schreibe 1");
-
-            int eins_zweiterwürfel = scan.nextInt();
-            System.out.println("möchtest du Würfel 2 nocheinmal würfeln? dann schreibe 1");
-            int zwei_zweiterwürfel = scan.nextInt();
-            System.out.println("möchtest du Würfel 3 nocheinmal würfeln? dann schreibe 1");
-            int drei_zweiterwürfel = scan.nextInt();
-            System.out.println("möchtest du Würfel 4 nocheinmal würfeln? dann schreibe 1");
-            int vier_zweiterwürfel = scan.nextInt();
-            System.out.println("möchtest du Würfel 5 nocheinmal würfeln? dann schreibe 1");
-            int fünf_zweiterwürfel = scan.nextInt();
-
-
-            if (1 == eins_zweiterwürfel) {
-                Dice.roll(dice[0]);
-                System.out.println("1. Dice Value " + dice[0].getFaceValue());
-            }
-            if (1 == zwei_zweiterwürfel) {
-                Dice.roll(dice[1]);
-                System.out.println("2. Dice Value " + dice[1].getFaceValue());
-            }
-            if (1 == drei_zweiterwürfel) {
-                Dice.roll(dice[2]);
-                System.out.println("3. Dice Value " + dice[2].getFaceValue());
-            }
-            if (1 == vier_zweiterwürfel) {
-                Dice.roll(dice[3]);
-                System.out.println("4. Dice Value " + dice[3].getFaceValue());
-            }
-            if (1 == fünf_zweiterwürfel) {
-                Dice.roll(dice[4]);
-                System.out.println("5. Dice Value " + dice[4].getFaceValue());
+    private void rerollDice() {
+        for (int ln = 0; ln < 2; ln++) {
+            System.out.println("Put in the dice you want to roll seperated with a ',': ");
+            System.out.print("Enter to skip!");
+            String input = scan.nextLine();
+            if (input.equals("")) {
+                System.out.println("Skipped!");
+            } else {
+            String[] diceToReRoll = input.split(",");
+                for (String s : diceToReRoll) {
+                    int diceNum = Integer.parseInt(s);
+                    Dice.roll(currentPlayer().getDice()[diceNum-1]);
+                }
             }
 
-            System.out.println(Dice.showDice(dice));
+            System.out.println(Dice.showDice(currentPlayer().getDice()));
+            System.out.println(currentPlayer().score.possibleCombinationsScoresToString());
         }
     }
 
     /**
-     * Method to get the next Player Object.
+     * Method to cycle through the players indices. Current player object can only be gotten by currentPlayer().
+     *
+     * @see Game#currentPlayer()
      */
     private void nextPlayer() {
         if (players.length - 1 == currentPlayerIndex) {
@@ -155,6 +115,11 @@ public class Game {
         return players[currentPlayerIndex];
     }
 
+    /**
+     * Method to get the winner of the game.
+     *
+     * @return Player Object with the highest score (Winner).
+     */
     private Player getWinner() {
         int highestScore = 0;
         Player winner = null;
