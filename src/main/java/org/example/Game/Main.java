@@ -21,6 +21,8 @@ public class Main {
 
     /**
      * Method to initialize the players for each game instance. A players name will be cut off at 10 characters.
+     *
+     * @return Player Array for the player instances.
      */
     public static Player[] initPlayers() {
         final Scanner scan = new Scanner(System.in);

@@ -23,6 +23,7 @@ public class Game {
 
     /**
      * Default Game constructor. Initializes the players.
+     * @param players Player Array for the player instances.
      *
      * @see Main#initPlayers()
      */

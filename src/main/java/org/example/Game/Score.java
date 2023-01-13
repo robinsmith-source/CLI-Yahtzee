@@ -47,6 +47,12 @@ public class Score {
         return playerScores;
     }
 
+
+    /**
+     * Method to calculate the score of a player.
+     *
+     * @return A Players Final Score
+     */
     public int getPlayerFinalScore() {
         int sumOfScores = 0, bonus = 0;
         for (int i = 0; i < 6; i++) {

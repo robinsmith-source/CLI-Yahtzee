@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * JUnit test Class for the Dice Class.
  */
-public class DiceTesting {
+public class DiceTests {
     /**
      * Test if the initial face value of the Dice is correct.
      * @see Dice#Dice()
