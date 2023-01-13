@@ -1,4 +1,5 @@
 package org.example.Game;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +23,7 @@ public class ScoreTests {
         p.getDice()[3].setFaceValue(3);
         p.getDice()[4].setFaceValue(3);
 
-        Assert.assertArrayEquals(new int[]{0,0,15,0,0,0,15,15,0,0,0,50,15},p.score.possibleCombinationsScores());
+        Assert.assertArrayEquals(new int[]{0, 0, 15, 0, 0, 0, 15, 15, 0, 0, 0, 50, 15}, p.score.possibleCombinationsScores());
     }
 
     /**
@@ -41,7 +42,7 @@ public class ScoreTests {
         p.getDice()[3].setFaceValue(2);
         p.getDice()[4].setFaceValue(2);
 
-        Assert.assertArrayEquals(new int[]{1,4,3,4,0,0,0,0,0,30,0,0,12},p.score.possibleCombinationsScores());
+        Assert.assertArrayEquals(new int[]{1, 4, 3, 4, 0, 0, 0, 0, 0, 30, 0, 0, 12}, p.score.possibleCombinationsScores());
     }
 
     /**
@@ -60,7 +61,7 @@ public class ScoreTests {
         p.getDice()[3].setFaceValue(2);
         p.getDice()[4].setFaceValue(1);
 
-        Assert.assertArrayEquals(new int[]{1,2,0,4,10,0,0,0,0,0,0,0,17},p.score.possibleCombinationsScores());
+        Assert.assertArrayEquals(new int[]{1, 2, 0, 4, 10, 0, 0, 0, 0, 0, 0, 0, 17}, p.score.possibleCombinationsScores());
     }
 
     /**
@@ -79,7 +80,7 @@ public class ScoreTests {
         p.getDice()[3].setFaceValue(5);
         p.getDice()[4].setFaceValue(4);
 
-        Assert.assertArrayEquals(new int[]{1,2,3,4,5,0,0,0,0,30,40,0,15},p.score.possibleCombinationsScores());
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5, 0, 0, 0, 0, 30, 40, 0, 15}, p.score.possibleCombinationsScores());
     }
 
     /**
@@ -98,6 +99,57 @@ public class ScoreTests {
         p.getDice()[3].setFaceValue(2);
         p.getDice()[4].setFaceValue(5);
 
-        Assert.assertArrayEquals(new int[]{0,8,0,0,5,0,13,13,0,0,0,0,13},p.score.possibleCombinationsScores());
+        Assert.assertArrayEquals(new int[]{0, 8, 0, 0, 5, 0, 13, 13, 0, 0, 0, 0, 13}, p.score.possibleCombinationsScores());
+    }
+
+    /**
+     * Test if the getPlayerFinalScore Method returns the correct score.
+     * Each combination has to be set first.
+     *
+     * @see Score#getPlayerFinalScore()
+     * @see Score#setOnCombination(int) 
+     */
+    @Test
+    public void getPlayerFinalScoreTest_1() {
+        Player p = new Player("Test");
+
+        p.getDice()[0].setFaceValue(1);
+        p.getDice()[1].setFaceValue(1);
+        p.getDice()[2].setFaceValue(1);
+        p.getDice()[3].setFaceValue(2);
+        p.getDice()[4].setFaceValue(2);
+        p.score.setOnCombination(1);
+        p.getDice()[0].setFaceValue(2);
+        p.getDice()[1].setFaceValue(2);
+        p.getDice()[2].setFaceValue(2);
+        p.getDice()[3].setFaceValue(3);
+        p.getDice()[4].setFaceValue(3);
+        p.score.setOnCombination(2);
+        p.getDice()[0].setFaceValue(3);
+        p.getDice()[1].setFaceValue(3);
+        p.getDice()[2].setFaceValue(3);
+        p.getDice()[3].setFaceValue(4);
+        p.getDice()[4].setFaceValue(4);
+        p.score.setOnCombination(3);
+        p.getDice()[0].setFaceValue(4);
+        p.getDice()[1].setFaceValue(4);
+        p.getDice()[2].setFaceValue(4);
+        p.getDice()[3].setFaceValue(5);
+        p.getDice()[4].setFaceValue(5);
+        p.score.setOnCombination(4);
+        p.getDice()[0].setFaceValue(5);
+        p.getDice()[1].setFaceValue(5);
+        p.getDice()[2].setFaceValue(5);
+        p.getDice()[3].setFaceValue(6);
+        p.getDice()[4].setFaceValue(6);
+        p.score.setOnCombination(5);
+        p.getDice()[0].setFaceValue(6);
+        p.getDice()[1].setFaceValue(6);
+        p.getDice()[2].setFaceValue(6);
+        p.getDice()[3].setFaceValue(1);
+        p.getDice()[4].setFaceValue(1);
+        p.score.setOnCombination(6);
+
+        Assert.assertEquals(98, p.score.getPlayerFinalScore());
     }
 }

@@ -74,7 +74,7 @@ public class Score {
 
     /**
      * Method to get all possible Scores from all valid combinations which can be scored by a player with his current Dice.
-     * Was implemented as private, but was changed to public for easier JUnit Testing
+     * Was implemented as private, but was changed to public for easier JUnit Testing.
      *
      * @return Array with the possible scores for each dice combination.
      * <ol start="0">
