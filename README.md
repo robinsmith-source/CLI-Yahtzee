@@ -2,7 +2,10 @@
 Welcome to the Yahtzee Game! This is a classic dice game where players roll five dice in an attempt to score points in different categories. The game is implemented in Java and can be played on the command line.
 
 ## How to Play
-1. Compile and run the Yahtzee.java file in your Java environment. 
+1. You can start the game by running following command in your console. Make sure, you are in the same folder!
+```console
+java -jar SD1_Project_Yahtzee.jar
+```
 
 2. Type in the player names seperated by a comma and press enter. For example, if you want to play with two players named 'Player 1' and 'Player 2', you would enter `Player 1, Player 2` in the command prompt.
 
